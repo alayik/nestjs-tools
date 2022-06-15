@@ -36,6 +36,7 @@ export function ApiSignature({
   status = 200,
   disable = false,
   isPagination = false,
+  isCursorPagination = false,
   summary,
 }: ApiSignatureType) {
   let nestMethod = Get;
@@ -67,10 +68,30 @@ export function ApiSignature({
       ApiQuery({
         name: 'take',
         description: 'The number of items you want to fetched',
+        required: false,
+      }),
+      ApiQuery({
+        name: 'page',
+        description: 'Page number to fetch',
+        required: false,
+      }),
+    );
+  }
+
+  if (isCursorPagination) {
+    return applyDecorators(
+      nestMethod(path),
+      Version(version),
+      HttpCode(status),
+      ApiOperation({ summary }),
+      ApiQuery({
+        name: 'take',
+        description: 'The number of items you want to fetched',
+        required: false,
       }),
       ApiQuery({
         name: 'cursor',
-        description: 'id as cursor query',
+        description: 'Id as cursor query',
         required: false,
       }),
     );

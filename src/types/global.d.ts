@@ -1,8 +1,4 @@
-declare type CacheManagerKeysType =
-  | 'Settings'
-  | 'Languages'
-  | 'Tags'
-  | 'Countries';
+declare type CacheManagerKeysType = 'Settings' | 'Languages' | 'Tags' | 'Countries';
 
 declare type SignatureMethodType = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -14,6 +10,7 @@ declare type ApiSignatureType = {
   summary: string;
   disable?: boolean;
   isPagination?: boolean;
+  isCursorPagination?: boolean;
 };
 
 declare type JwtTokensType = {
