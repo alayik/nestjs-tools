@@ -1,3 +1,4 @@
+import { throwForbidden } from '../errors';
 import { Request, Response } from 'express';
 
 export class ReqHelper {
@@ -49,5 +50,23 @@ export class ReqHelper {
 
   public getUserAgent(req: Request) {
     return req.headers['user-agent'] || '-';
+  }
+
+  public static hasAccess(req: Request, permission: string, throwable = true) {
+    const user = req['args'][0].user;
+
+    if (user && user.perms && user.perms[0]) {
+      const hasAccess = user.perms.find((perm) => perm === permission);
+
+      if (Boolean(hasAccess)) {
+        return user;
+      }
+    }
+
+    if (throwable) {
+      throwForbidden();
+    }
+
+    return null;
   }
 }

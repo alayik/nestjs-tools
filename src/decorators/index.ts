@@ -13,6 +13,7 @@ import {
   Version,
   HttpCode,
 } from '@nestjs/common';
+import { ReqHelper } from '../helpers';
 
 export const Id = () => Param('id', new ParseIntPipe());
 
@@ -77,3 +78,7 @@ export function ApiSignature({
 
   return applyDecorators(nestMethod(path), Version(version), HttpCode(status), ApiOperation({ summary }));
 }
+
+export const HasAccess = createParamDecorator((permission: string, req) => {
+  return ReqHelper.hasAccess(req, permission);
+});
