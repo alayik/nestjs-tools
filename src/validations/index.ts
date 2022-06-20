@@ -15,7 +15,7 @@ export class Validation extends ValidationPipe {
       if (e instanceof BadRequestException) {
         const res = {
           status: HttpStatus.UNPROCESSABLE_ENTITY,
-          message: 'The submitted data is not valid',
+          message: 'داده های ارسالی معتبر نیست',
           errors: [],
         };
         const response: any = e.getResponse();

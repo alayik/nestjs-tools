@@ -8,7 +8,7 @@ export class UnauthorizedExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
     response.status(status).json({
-      message: 'You are not logged in',
+      message: 'شما وارد نشده اید',
       errors: [],
     });
   }

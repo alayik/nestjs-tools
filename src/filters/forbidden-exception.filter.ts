@@ -1,12 +1,5 @@
 import { Response } from 'express';
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  UnauthorizedException,
-  ForbiddenException,
-  HttpStatus,
-} from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 
 @Catch(ForbiddenException)
 export class ForbiddenExceptionFilter implements ExceptionFilter {
@@ -15,7 +8,7 @@ export class ForbiddenExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
     response.status(status).json({
-      message: 'You do not have enough access!',
+      message: 'شما دسترسی کافی ندارید!',
       errors: [],
     });
   }

@@ -9,7 +9,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     if (error.getStatus() === HttpStatus.UNAUTHORIZED) {
       if (typeof error.response !== 'string') {
-        error.response.message = error.response.message || 'You do not have permission to access this resource';
+        error.response.message = error.response.message || 'شما اجازه دسترسی به این منبع را ندارید';
       }
     }
 
@@ -23,7 +23,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       });
 
       error.response.errors = errorsList;
-      error.response.message = 'Validation error occurred';
+      error.response.message = 'خطای اعتبارسنجی رخ داد';
     }
 
     res.status(error.getStatus()).json({

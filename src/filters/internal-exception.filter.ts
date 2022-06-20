@@ -14,7 +14,7 @@ export class InternalExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
     response.status(status).json({
-      message: 'Oops! The request encountered an error.',
+      message: 'اوه! درخواست با خطا مواجه شد.',
       errors: [],
     });
   }

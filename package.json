@@ -1,6 +1,6 @@
 {
   "name": "nest-tools",
-  "version": "1.1.2",
+  "version": "1.2.5",
   "description": "NestJS useful tools",
   "author": "Mostafa Gholami <mostafagholamidev@gmail.com>",
   "license": "MIT",
@@ -46,8 +46,10 @@
     "@prisma/client": "^3.14.0",
     "compression": "^1.7.4",
     "helmet": "^5.1.0",
+    "js-sha3": "^0.8.0",
     "morgan": "^1.10.0",
-    "rxjs": "^7.5.5"
+    "rxjs": "^7.5.5",
+    "slugify": "^1.6.5"
   },
   "devDependencies": {
     "@nestjs/common": "^8.4.5",
