@@ -1,6 +1,6 @@
 {
   "name": "nest-tools",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "NestJS useful tools",
   "author": "Mostafa Gholami <mostafagholamidev@gmail.com>",
   "license": "MIT",
