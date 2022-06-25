@@ -29,6 +29,10 @@ export const ReqUser = createParamDecorator((data: string, req) => {
   return data ? req['args'][0].user && req['args'][0].user[data] : req['args'][0].user;
 });
 
+export const JwtUser = createParamDecorator((_, req) => {
+  return req.user ?? req['args'][0].user;
+});
+
 export function ApiSignature({
   method = 'GET',
   path = '',
