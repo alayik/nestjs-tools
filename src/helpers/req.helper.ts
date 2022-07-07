@@ -54,7 +54,7 @@ export class ReqHelper {
 }
 
 export const hasAccess = (req: Request, permission: string, throwable = true) => {
-  const user = req['args'][0].user;
+  const user = req.user ?? req['args'][0].user;
 
   if (user && user.perms && user.perms[0]) {
     const hasAccess = user.perms.find((perm) => perm.key === permission);
