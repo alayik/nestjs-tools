@@ -21,7 +21,9 @@ const CleanLevelValue = 5;
 
 export const RemoveDoubleUnderscore = (obj: any, level = 0) => {
   if (level <= CleanLevelValue && typeof obj == 'object') {
-    Object.keys(obj).forEach(
+    const keys = Object.keys(obj) || [];
+
+    keys.forEach(
       (key) =>
         (obj[key] &&
           typeof obj[key] === 'object' &&
@@ -29,6 +31,11 @@ export const RemoveDoubleUnderscore = (obj: any, level = 0) => {
           RemoveDoubleUnderscore(obj[key], level + 1)) ||
         (!obj[key] && RemoveAction(obj, key)),
     );
+
+    if (keys.includes('_id')) {
+      Object.defineProperty(obj, 'id', Object.getOwnPropertyDescriptor(obj, '_id'));
+      delete obj._id;
+    }
   }
 
   return obj;
@@ -38,9 +45,6 @@ export const RemoveAction = (obj: any, key: any) => {
   try {
     if (key.includes('__')) {
       Object.defineProperty(obj, key.replace(/__/g, ''), Object.getOwnPropertyDescriptor(obj, key));
-      delete obj[key];
-    } else if (key.includes('_')) {
-      Object.defineProperty(obj, key.replace(/_/g, ''), Object.getOwnPropertyDescriptor(obj, key));
       delete obj[key];
     }
   } catch (error) {
