@@ -27,6 +27,15 @@ const columns = {
   role: 'نقش کاربری',
   user: 'کاربر',
   organization: 'سازمان',
+  model: 'مدل',
+  mac: 'مک آدرس',
+  serial: 'سریال',
+  os: 'سیستم عامل',
+  os_version: 'ورژن سیستم عامل',
+  duration: 'مدت زمان',
+  ratio: 'نسبت اندازه',
+  bg_color: 'رنگ بکگراند',
+  color: 'رنگ',
 };
 
 const messages = {

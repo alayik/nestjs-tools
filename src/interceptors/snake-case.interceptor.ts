@@ -1,12 +1,7 @@
 import { map } from 'rxjs/operators';
 import { mapKeys, snakeCase } from 'lodash';
 import { Observable } from 'rxjs';
-import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  CallHandler,
-} from '@nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 
 @Injectable()
 export class SnakeCaseInterceptor implements NestInterceptor {
