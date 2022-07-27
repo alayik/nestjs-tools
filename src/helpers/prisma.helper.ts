@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 
-export const paginationQuery = (page?: string, take?: string): { skip: number; take: number } => {
+export const paginationQuery = (page?: string, take?: string): { skip: number; take: number; page: number } => {
   let pageNum = 1;
   let takeNum = 25;
 
@@ -17,7 +17,8 @@ export const paginationQuery = (page?: string, take?: string): { skip: number; t
 
   if (!take)
     return {
-      skip: (pageNum - 1) * takeNum,
+      skip: pageNum > 0 ? (pageNum - 1) * takeNum : 0,
       take: takeNum,
+      page: pageNum,
     };
 };

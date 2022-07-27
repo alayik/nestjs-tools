@@ -1,10 +1,29 @@
 import { PrismaClient } from '@prisma/client';
 import { Global, Injectable } from '@nestjs/common';
 import { throwUnprocessableEntity, throwNotFound } from '../errors';
+import { paginationQuery } from 'src/helpers';
+
+export interface PaginatedResult<T> {
+  data: T[];
+  meta: {
+    total_docs: number;
+    take: number;
+    total_pages: number;
+    page: number;
+    paging_counter?: number;
+    has_prev_page: boolean;
+    has_next_page: boolean;
+    prev: number;
+    next: number;
+  };
+}
+export type PaginateOptions = { page?: string; take?: string };
 
 @Global()
 @Injectable()
 export class PrismaService extends PrismaClient {
+  tables: string[];
+
   constructor() {
     super({ errorFormat: 'minimal' });
   }
@@ -29,5 +48,46 @@ export class PrismaService extends PrismaClient {
       }
     }
     return rawModel;
+  }
+
+  async paginate<T>({
+    model,
+    options,
+    query = { where: undefined },
+  }: {
+    model: string;
+    options?: PaginateOptions;
+    query: any;
+  }): Promise<PaginatedResult<T>> {
+    const prismaModel = this[model];
+
+    const { page, take, skip } = paginationQuery(options.page, options.take);
+
+    const [total, data] = await Promise.all([
+      prismaModel.count({ where: query.where }),
+      prismaModel.findMany({
+        ...query,
+        take,
+        skip,
+      }),
+    ]);
+
+    const lastPage = Math.ceil(total / take);
+    const prev = page > 1 ? page - 1 : null;
+    const next = page < lastPage ? page + 1 : null;
+
+    return {
+      data,
+      meta: {
+        total_docs: total,
+        total_pages: lastPage,
+        page,
+        take,
+        prev,
+        has_prev_page: Boolean(prev),
+        next,
+        has_next_page: Boolean(next),
+      },
+    };
   }
 }
