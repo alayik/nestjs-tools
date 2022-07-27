@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { Global, Injectable } from '@nestjs/common';
 import { throwUnprocessableEntity, throwNotFound } from '../errors';
-import { paginationQuery } from 'src/helpers';
+import { paginationQuery } from '../helpers';
 
 export interface PaginatedResult<T> {
   data: T[];
@@ -50,15 +50,11 @@ export class PrismaService extends PrismaClient {
     return rawModel;
   }
 
-  async paginate<T>({
-    model,
-    options,
-    query = { where: undefined },
-  }: {
-    model: string;
-    options?: PaginateOptions;
-    query: any;
-  }): Promise<PaginatedResult<T>> {
+  async paginate<T>(
+    model: string,
+    options: PaginateOptions,
+    query: any = { where: undefined },
+  ): Promise<PaginatedResult<T>> {
     const prismaModel = this[model];
 
     const { page, take, skip } = paginationQuery(options.page, options.take);
