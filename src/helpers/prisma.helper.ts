@@ -8,17 +8,20 @@ export const paginationQuery = (page?: string, take?: string): { skip: number; t
     if (page) {
       pageNum = parseInt(page, 10);
     }
+  } catch (error) {
+    Logger.error('Error in pagination query in page value: ', error);
+  }
+  try {
     if (take) {
       takeNum = parseInt(take, 10);
     }
   } catch (error) {
-    Logger.error('Error in paginationQuery: ', error);
+    Logger.error('Error in pagination query in take value: ', error);
   }
 
-  if (!take)
-    return {
-      skip: pageNum > 0 ? (pageNum - 1) * takeNum : 0,
-      take: takeNum,
-      page: pageNum,
-    };
+  return {
+    skip: pageNum > 0 ? (pageNum - 1) * takeNum : 0,
+    take: takeNum,
+    page: pageNum,
+  };
 };
