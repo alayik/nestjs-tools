@@ -1,0 +1,3 @@
+export const SHA256_SECRET = 'SHA256_SECRET';
+export const SHA256_PART_ONE = 'SHA256_PART_ONE';
+export const SHA256_PART_TWO = 'SHA256_PART_TWO';
