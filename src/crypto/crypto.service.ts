@@ -13,24 +13,18 @@ export class CryptoService {
   constructor(@Inject(CRYPTO_SECRET) private readonly secret, @Inject(CRYPTO_ALGORITHM) private readonly algorithm) {}
 
   encrypt(text: string): TextEncrypt {
-    const initVector = crypto.randomBytes(16);
-    const cipher = crypto.createCipheriv(this.algorithm, this.secret, initVector);
-
-    let encrypted = cipher.update(text, 'utf-8', 'hex');
-    encrypted += cipher.final('hex');
-
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipheriv(this.algorithm, this.secret, iv);
+    const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
     return {
-      iv: initVector.toString('hex'),
-      content: encrypted,
+      iv: iv.toString('hex'),
+      content: encrypted.toString('hex'),
     };
   }
 
   decrypt(hash: TextEncrypt) {
     const decipher = crypto.createDecipheriv(this.algorithm, this.secret, Buffer.from(hash.iv, 'hex'));
-
-    let decrypted = decipher.update(hash.content, 'hex', 'utf-8');
-    decrypted += decipher.final('utf8');
-
-    return decrypted;
+    const decrypted = Buffer.concat([decipher.update(Buffer.from(hash.content, 'hex')), decipher.final()]);
+    return decrypted.toString();
   }
 }
