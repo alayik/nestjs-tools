@@ -12,3 +12,4 @@ export * from './validations';
 export * from './providers';
 export * from './request-context';
 export * from './sha256';
+export * from './crypto';
