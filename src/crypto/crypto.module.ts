@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { CipherGCMTypes, CryptoDefaultConfig } from './crypto.config';
 import { CRYPTO_ALGORITHM, CRYPTO_SECRET } from './crypto.constants';
+import { CryptoService } from './crypto.service';
 
 @Global()
 @Module({})
@@ -24,8 +25,9 @@ export class CryptoModule {
           },
           provide: CRYPTO_ALGORITHM,
         },
+        CryptoService,
       ],
-      exports: [CRYPTO_SECRET, CRYPTO_ALGORITHM],
+      exports: [CryptoService, CRYPTO_SECRET, CRYPTO_ALGORITHM],
     };
   }
 }
