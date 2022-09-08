@@ -2,7 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { ClientProviderOptions, ClientsModule as MicroClientsModule } from '@nestjs/microservices';
 import { MicroUserJwtGuard } from './guard';
 import { GetKafkaClient, KafkaProxy, MicroServiceOptions } from './kafka';
-import { APP_KAFKA_CLIENT, MICROSERVICE_CONFIGS } from './micro.constants';
+import { MICROSERVICE_CONFIGS } from './micro.constants';
 
 @Global()
 @Module({})
@@ -22,7 +22,7 @@ export class MicroServiceModule {
         KafkaProxy,
         MicroUserJwtGuard,
       ],
-      exports: [KafkaProxy, MicroUserJwtGuard, APP_KAFKA_CLIENT, MICROSERVICE_CONFIGS],
+      exports: [KafkaProxy, MicroUserJwtGuard, MICROSERVICE_CONFIGS],
     };
   }
 
