@@ -1,5 +1,3 @@
-declare type CacheManagerKeysType = 'Settings' | 'Languages' | 'Tags' | 'Countries';
-
 declare type SignatureMethodType = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 declare type ApiSignatureType = {

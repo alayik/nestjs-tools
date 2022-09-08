@@ -1,8 +1,4 @@
-declare type CacheManagerKeysType =
-  | 'Settings'
-  | 'Languages'
-  | 'Tags'
-  | 'Countries';
+declare type CacheManagerKeysType = 'Settings' | 'Languages' | 'Tags' | 'Countries';
 
 declare type SignatureMethodType = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -46,4 +42,16 @@ declare type ManyToManyCreateType = {
 
 declare type ManyToManyUpdateType = {
   id: number;
+};
+
+declare type ActivitySubmitNewType = {
+  organization_id: string;
+  ref_user_id: string;
+  tracking_code?: string;
+  check_tracking_code?: boolean;
+  service: string;
+  action: string;
+  old_raw?: any;
+  new_raw?: any;
+  meta?: any;
 };
