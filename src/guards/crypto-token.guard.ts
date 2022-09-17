@@ -5,7 +5,7 @@ import { throwInvalidToken } from '../errors';
 import { isValidObjectId } from '../helpers';
 
 import { Injectable, CanActivate, ExecutionContext, applyDecorators, UseGuards } from '@nestjs/common';
-import { CryptoService } from 'src/crypto';
+import { CryptoService } from '../crypto/crypto.service';
 
 @Injectable()
 export class CryptoTokenGuard implements CanActivate {
