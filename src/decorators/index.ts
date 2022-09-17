@@ -14,6 +14,7 @@ import {
   HttpCode,
 } from '@nestjs/common';
 import { hasAccess } from '../helpers';
+import { throwInvalidToken } from '../errors';
 
 export const Id = () => Param('id', new ParseIntPipe());
 
@@ -106,4 +107,24 @@ export function ApiSignature({
 
 export const HasAccess = createParamDecorator((permission: string, req) => {
   return hasAccess(req, permission);
+});
+
+export const ReqDeviceId = createParamDecorator((_, req) => {
+  const deviceId = req.deviceId ?? req['args'][0].deviceId;
+
+  if (!deviceId) {
+    throwInvalidToken();
+  }
+
+  return deviceId;
+});
+
+export const ReqDeviceToken = createParamDecorator((_, req) => {
+  const deviceToken = req.deviceToken ?? req['args'][0].deviceToken;
+
+  if (!deviceToken) {
+    throwInvalidToken();
+  }
+
+  return deviceToken;
 });
