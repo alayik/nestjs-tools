@@ -83,3 +83,13 @@ export const throwUnprocessableEntity = (
     HttpStatus.UNPROCESSABLE_ENTITY,
   );
 };
+
+export const throwInvalidToken = (msg: string | null = null) => {
+  throw new HttpException(
+    {
+      status: HttpStatus.UNAUTHORIZED,
+      message: msg || 'توکن نامعتبر است',
+    },
+    HttpStatus.UNAUTHORIZED,
+  );
+};
